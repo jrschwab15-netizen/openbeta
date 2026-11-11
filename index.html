@@ -71,6 +71,7 @@ section.block{padding-top:64px}
 .card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;text-decoration:none;transition:transform .15s ease,border-color .15s ease,box-shadow .15s ease}
 .card:hover{transform:translateY(-2px);border-color:var(--accent);box-shadow:0 10px 30px -18px rgba(11,18,32,.35)}
 .tile{height:148px;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tile.shot{align-items:stretch;justify-content:stretch}.tile.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center top;display:block}.tile.shot::after{content:"";position:absolute;inset:auto 0 0 0;height:56px;background:linear-gradient(transparent,rgba(0,0,0,.55))}.tile.shot .t{z-index:1;color:#fff;opacity:1}
 .tile .mark{width:84px;height:84px;display:block}
 .tile .mark svg{width:100%;height:100%;display:block;overflow:visible}
 .tile .t{position:absolute;left:18px;bottom:12px;font-family:var(--font-mono);font-size:11.5px;letter-spacing:.07em;text-transform:uppercase;opacity:.85}
@@ -226,9 +227,11 @@ function spark(v){
 }
 function statFor(slug){ return stats.projects.filter(function(s){return s.slug===slug})[0]; }
 
+var SHOTS = {"hollington-cup":{src:"img/cup.jpg",alt:"The Hollington Family Tournament live leaderboard"},"xmas-hunt":{src:"img/xmas.jpg",alt:"A sealed envelope tucked in a Christmas scarf"}};
 function card(p){
   var isLive=p.status==="live", st=statFor(p.slug), clicks=st?st.clicks_7d:0, logo=p.logo_key&&LOGOS[p.logo_key], n=STAGE[p.status]||1;
-  var tile=logo?'<div class="tile" style="background:'+esc(p.tile_bg)+';color:'+esc(p.tile_fg)+'"><span class="mark">'+logo+'</span><span class="t">'+esc(p.kind)+'</span></div>'
+  var shot=SHOTS[p.slug];
+  var tile=shot?'<div class="tile shot"><img src="'+shot.src+'" alt="'+esc(shot.alt)+'" loading="lazy"><span class="t">'+esc(p.kind)+'</span></div>':logo?'<div class="tile" style="background:'+esc(p.tile_bg)+';color:'+esc(p.tile_fg)+'"><span class="mark">'+logo+'</span><span class="t">'+esc(p.kind)+'</span></div>'
     :'<div class="tile" style="background:hsl('+p.hue+' 40% 17%);color:hsl('+p.hue+' 60% 72%)"><span class="g">'+esc(p.name.charAt(0).toLowerCase())+'</span><span class="t">'+esc(p.kind)+'</span></div>';
   var stage='<div class="stage" aria-hidden="true">'+[1,2,3,4].map(function(i){return '<i'+(i<=n?' class="on"':'')+'></i>'}).join("")+'</div>';
   var sp=isLive?'<div class="spark">'+spark(st?st.daily:[0,0,0,0,0,0,0])+'<span>'+clicks+'</span></div>':"";
