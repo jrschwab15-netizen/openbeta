@@ -149,16 +149,14 @@ footer{margin-top:80px;padding-block:28px 56px;border-top:1px solid var(--line);
     <div>
       <p class="eyebrow"><i></i>Apps and websites</p>
       <h1>Apps built for <em>everyday use</em>.</h1>
-      <p class="lead">openbeta builds apps and websites people reach for every day, from golf journals and event tracking to tools for teams. Some are live now, and more are on the way.</p>
+      <p class="lead">openbeta builds apps and websites people reach for every day, from golf journals and event tracking to tools for teams.</p>
       <div class="cta"><a class="btn" href="#live">See what's live</a><a class="btn ghost" href="#contact">Say hello</a></div>
     </div>
     <div class="panel" aria-label="Portfolio totals">
       <div class="panel-h"><span>At a glance</span><span>Last 7 days</span></div>
       <div class="stats">
         <div class="stat"><b id="s-projects">0</b><small>Projects</small></div>
-        <div class="stat"><b id="s-live">0</b><small>Live</small></div>
         <div class="stat"><b id="s-visits">0</b><small>Visits</small></div>
-        <div class="stat"><b id="s-soon">0</b><small>Coming soon</small></div>
       </div>
     </div>
   </section>
@@ -265,9 +263,7 @@ function render(){
   document.getElementById("n-live").textContent=live.length+" live";
   document.getElementById("n-build").textContent=rest.length+" launching soon";
   document.getElementById("s-projects").textContent=prod.length;
-  document.getElementById("s-live").textContent=live.length;
   document.getElementById("s-visits").textContent=stats.views_7d;
-  document.getElementById("s-soon").textContent=rest.length;
 }
 function setTab(t){
   var p=t==="personal";
